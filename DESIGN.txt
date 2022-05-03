@@ -1,0 +1,332 @@
+DESIGN
+3D Convolutional Neural Networks:
+
+DATASET
+The VIVA challenge was organized to evaluate and advance
+the state-of-the-art in multi-modal dynamic hand gesture
+recognition under challenging conditions (with variable
+lighting and multiple subjects). The VIVA challenge’s
+dataset contains 885 intensity and depth video sequences of
+19 different dynamic hand gestures performed by 8 subjects.
+
+
+PREPROCESSING
+Firstly, each gesture sequence to 32
+frames was re-sampled using nearest neighbor interpolation (NNI) by dropping
+or repeating frames. Then
+the original intensity and depth images by a factor of 2
+to 57  125 pixels was spatially down sampled. The gradients from the intensity
+channel using the Sobel operator of size 3  3 pixels is computed.Normalizing
+each channel of a particular gesture’s video sequence to be
+of zero mean and unit variance helped the gesture
+classifier converge faster.
+
+
+CLASSIFIER
+The convolutional neural network classifier consisted
+of two sub-networks : a high-resolution network
+(HRN) and low-resolution network (LRN), with network
+parameters WH and WL, respectively.The high-resolution network consisted of four 3D convolution
+layers, each of which was followed by the maxpooling
+operator.The input was the output of the fourth 3D convolutional
+layer to two fully-connected layers (FCLs) with 512
+and 256 neurons, respectively. The output of this highresolution
+network was a softmax layer, which produced class-membership.
+Similar to the HRN, LRN also comprised of a number of 3D convolutional
+layers, each followed by a max-pooling layer, two
+FCLs, and an output softmax layer that estimated the classmembership
+probability P(Cjx|WL) values.
+
+TRAINING
+
+The process of training a CNN involves the optimization
+of the network’s parameters W to minimize a cost function
+for the dataset D.
+Optimization via stochastic gradient descent
+with mini-batches of 40 and 20 training samples for
+the LRN and the HRN, respectively is performed.
+The LRN and the HRN was trained separately and merged
+them only during the forward propagation stage employed
+for decision making. Then weight decay to all convolution
+layers was applied. After processing each mini-batch we subtracted
+0.5% from the network weights.Then drop-out (with p = 0.5) to the outputs of the fullyconnected
+hidden layers was applied. During drop-out, the outputs
+were randomly (with p = 0.5) set to 0, and were consequently
+not used in the back-propagation step of that training
+iteration.
+For the forward propagation stage, the weights
+of the layer following the dropped layer were multiplied by
+2 to compensate for the effect of drop-out.
+For tuning the learning rate, we first initialized the rate to
+0.005 and reduced it by a factor of 2 if the cost function did
+not improve by more than 10% in the preceding 40 epochs.
+
+
+
+
+
+
+
+
+LEAP MOTION
+
+
+Dynamic hand gesture recognition is considered to be the
+problem of sequential modeling and classification. This paper
+specifically offers a solution to depth data frame sequence classification
+with the corresponding hand gesture model in hand
+gesture recognition. The systematic framework of the proposed
+method (shown in Fig. 1) includes two steps: 1. Feature extraction,
+2. Classification with the HCNF classifier.
+
+1.feature extraction
+the feature extraction time of the LMC is less than the Kinect sensor. The features
+used in this paper are based on palm direction, palm normal,
+fingertips positions, and palm center position data in depth data
+frames.
+The proposed feature vector consists of single-finger features
+and double-finger features.To describe the interaction between
+adjacent fingertips, double-finger features is presented. All the
+features values are normalized to the interval [0, 1].
+
+The proposed feature vector has two main benefits. First,
+single-finger features help to solve the problem of mislabeling
+which is usually caused by performing the dynamic hand gesture
+in different positions. Second, double-finger features help
+in distinguishing the different types of interactions between adjacent
+fingertips.
+
+B. Classification with the HCNF Classifier
+In this paper, a HCNF-based classifier
+is used to recognize dynamic hand gestures. HCNF not only has
+the advantages of HCRF, but can also consider different kinds
+of features.
+1. Graph Structure of HCNF:
+	 HCNF is an extension of HCRF by introducing
+gate function into it. From HCNF, we learn the mapping
+of observations x = {x1, x2, . . . xm} to class labels y ? Y ,
+where xi ? x is the feature vector proposed in the previous
+section.
+In HCNF, the observation feature function uses K gate functions
+by which it considers nonlinearity among features. It allows
+HCNF to be able to consider different kinds of features.
+
+2.Training
+We use the following objective function in
+training the parameters:
+SPACE FOR EQUATION
+where N is the total number of training sequences.
+
+A. Dynamic Hand Gesture Datasets
+
+Two kinds of dynamic hand gesture datasets, i.e.,
+LeapMotion-Gesture3D dataset and Handicraft-Gesture dataset,
+with an LMC were builted. All depth data frames of each dataset were acquired
+with the LMC’s specific API.
+1. LeapMotion-Gesture3D Dataset:
+	This dataset contains a subset of gestures defined by
+ASL. There are 12 gestures in the dataset: bathroom, blue, finish,
+green, hungry, milk, past, pig, and store, where, j, z.
+
+2.Handicraft-Gesture Dataset:
+	This dataset comprises of ten gestures
+which originate from pottery skills, i.e., poke, pinch, pull,
+scrape, slap, press, cut, circle, key tap, mow.
+
+In both datasets, the depth data is captured with 60 frames
+per second. There were 10 subjects helping to build the datasets
+and each one performed every gesture three times.
+
+
+
+
+
+
+
+DEEP LEARNING
+
+A.DATA COLLECTION
+	The experiment uses the JY61 six-axis attitude sensor. The
+six-axis module uses the high-precision gyroscope MPU6050
+to read the measurement data and then output the data through
+the serial port. The sensor device is placed at the wrist of a
+person. The signal is collected by the receiver of the USB
+interface.
+Because deep learning is primarily based on large amounts
+of data. If the neural network sample data is small, with a
+higher sample ratio of the parameters, it is likely occuring
+overfit.When collection data, the experimenters made
+clockwise rotation and counterclockwise rotation, up and
+down, left and right, Z and V, 8 and + movements in different
+Scenes.
+
+B. DATA CAPTURE
+	The first step in gesture recognition is to accurately detect
+the start and end points of the gesture so that an effective
+gesture signal segment can be intercepted in real time.
+	When there is no gesture,
+those two signals are relatively stable; when the gesture action
+starts, those two signals change intensely. The difference
+between the signals shows how violently the signal changes.
+Therefore, it is used to detect the start and end of a gesture
+online in real time.
+
+C. Gesture feature extraction
+
+	There are two major changes to the arm when people make
+gestures. One is the movement of the arm and the other is the
+rotation of the arm.The data information is collected includes acceleration data, angular velocity data and
+angle data.
+	During the acquisition process, the speed and amplitude
+of the different gestures of different users may vary greatly.
+Even if the same user repeats the same gesture, the speed
+and amplitude are not exactly the same. Therefore, the sample
+data needs to be normalized. Using the Z-score normalized
+method, the normalized data is normally distributed. The mean
+is zero and the standard deviation is one. The distribution of
+the original data after normalization can be approximated as
+a Gaussian distribution.
+
+RECOGNITION ALGORITHM
+Sensor data is a time series, so this article selects the
+RNN, LSTM and GRU models which have great success in
+the timing problem as the gesture recognition model.
+This article mainly includes these three algorithms and
+compares these three algorithms. Use these three algorithms
+to train the preprocessed gesture data separately.
+
+
+
+
+
+
+VISION BASED
+
+1.DEEP LEARNING
+
+1.1 Convolutional neural network (CNN)
+	convolutional neural networks are composed of
+convolution layers, sub-sampling layers and a classifier
+layer (e.g., SVM or multilayer network).The convolution layer and sub-sampling layers have feature
+maps that are arranged in 2D topology; several layers
+can be stacked in these networks to realize a deep network
+	1.1.1 Convolution operation
+		The input image is assumed to be of size
+K *L, and a kernel of size a 9 a used for the convolution
+operation, which generates n convolution feature maps
+(C1: first convolution map) of size i*i each.
+	1.1.2 Sub-sampling/pooling operation
+		It is in this layer that extracted features in each convolution
+feature map are spatially reduced.
+
+1.2 Stacked denoising autoencoder (SDAE)
+	Autoencoders are generative networks, which can be used
+to learn the reconstruction of input data at the output layer
+(pretraining).Generally, an autoencoder can be considered as having one
+hidden layer, which learns the compressed representation of input attributes and
+its expansion to the original input data in the output layer.
+	A variant of the typical autoencoder is the denoising
+autoencoder (DAE). This network is used to learn the
+reconstruction of corrupted input data in the output layer.
+The input data are corrupted to a particular degree, usually
+50 %, while the desired output data are the uncorrupted
+data. It has been shown that such networks learn more
+interesting features from training data compared to the
+conventional autoencoder.
+
+2.Training of networks
+
+2.1 CNN training
+Convolutional neural networks (CNNs) of different depth
+sizes are trained in this work.
+
+2.1.1 CNN1
+	First, a CNN of two hidden layers, CNN1, is trained.The classifier layer is a fully connected
+network of one hidden layer with 400 neurons. Considering
+the number of hand gesture classes, it therefore follows that
+the classifier output layer has 24 neurons. A batch size of 5
+is used to achieve stochastic gradients computations for
+optimizing the mean-square-error cost function.
+2.1.2 CNN2
+	Experiment with a CNN of three hidden
+layers is done.It
+can be seen that training required more training time and
+the achieved MSE is higher as compared to that of CNN1.
+2.1.3 CNN3
+	CNN3 with four hidden layers is trained, as this
+allows the observation of improvements in learning with
+network depth.The classifier layer for CNN3 is a fully connected network
+of one hidden layer with 400 neurons as in CNN1 and
+CNN2, and a batch size of 5 is used to achieve stochastic
+training of the network.CNN3 has a higher MSE compared to CNN2 and
+CNN1. Moreover, training required most number of
+iterations.
+
+2.2 SDAE training
+Stacked denoising autoencoders (SDAEs) of different
+depths are trained in order to observe any improvement in
+performance as more layers are stacked. The three different
+SDAEs are denoted SDAE1, SDAE2 and SDAE3.
+
+3.Network testing and discussion
+The trained convolutional neural networks (CNNs) and
+stacked denoising autoencoders (SDAEs) are first tested
+with the training data, 1440 hand gestures. In order to
+obtain the generalization power of the trained networks,
+600 samples of hand gestures that are not part of the
+training data are used to test the networks.
+Its seen that CNN1 with two hidden layers achieved
+the highest recognition rate for the trained CNNs. Also, its seen that there is decline in recognition rates for
+CNN2 and CNN3; this may be attributed to saturating
+neurons and vanishing gradients.
+Its seen that the recognition rates for the
+CNNs decrease with networks’ depth, i.e., CNN3 has the
+lowest recognition rate. In contrast, recognition rates for
+the SDAEs increase with networks’ depth, i.e., SDAE3
+achieved highest recognition rate.
+	Deep learning-based neural
+networks benefit from more distributed and hierarchical
+learning which have been shown to contribute to their
+superior performances in many applications, and therefore
+in this work.
+
+
+
+
+
+
+REAL SENSE
+
+
+
+ this paper proposes a static hand gesture recognition system based on generalized Hough transform (GHT) 
+and double- channel Convolution Neural NetworN (DC-CNN).RealSense Camera SR300 depth camera is chosen as the acquisition device.
+ The general steps of this system are given as follows. Firstly, RealSense camera SR300 is used to acquire 
+color information and depth information. Secondly, generalized Hough Transform (GHT) is computed to segment the hand gestures accurately in
+ color images by fusing the color information and depth information. Finally, DC-CNN is designed to fuse the segmented color images and depth images
+ and the final output of the networN is the prediction of the hand gestures. 
+
+1.1 Generalized Hough Transform
+	generalized Hough transform (GHT) can be used to detect arbitrary shapes that have no simple analytical form. This
+	 is because a table is used to describe a graph, where the coordinates of the edge points in the table can be preserved and then a
+	 graph can be uniquely determined. GHT has several advantages about object recognition: 1) it is robust to partial or slightly deformed
+	 shapes (i.e., robust to recognition under occlusion); 2) it is robust to the presence of additional structures in the image
+	 (i.e., other lines, curves, etc.); 3) it is tolerant to noise; 4) it can find multiple occurrences of a shape during the same processing stage. 
+	PREPROCESSING:
+		1)  Extract the hand contour by the Sobel operator in the depth image and taNe the contour as the template; 
+		2)  PicN a reference point randomly in the template
+		3)  Draw a line from the reference point 
+		4) Compute f (i.e., perpendicular to the gradient’s direction)
+	SEGMENTATION:
+		The next step is to segment hand gestures in the color images. We match the pixels in the color images with those
+		 in the depth images. If the pixel value in the depth images is larger than the set threshold, then the corresponding
+		 pixel value in the color images is retained, otherwise it will be set to zero. 
+1.2Double-channel Convolutional Neural Network 
+	A double-channel convolution neural networN (DC-CNN) containing two input channels is created, which
+ 	 are the segmented color images using generalized Hough transform (GHT) and the original depth images, respectively.
+	In this networN, RGB images and depth images are separately sent to two different branches of the networN. By passing
+	 through a series of convolution layers, ReLU layers and max-pooling layers, RGB images are translated into 18 feature maps 
+	with a size of 30x30, and depth images are translated into 12 feature maps with a size of 30x30. Then, these two channels are
+	 fused into one channel. Again, after several convolution layers, ReLU layers and max-pooling layers, they are translated into 90
+	 feature maps with a size of 6x6. After that, they are sent into a fully-connected layer with 1,024 neurons and a fully-connected layer
+	 with 144 neurons. Finally, the softmax model is used to classify different hand gestures. 
