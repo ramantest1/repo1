@@ -1,3 +1,4 @@
+changed
 DESIGN
 3D Convolutional Neural Networks:
 
@@ -5,7 +6,7 @@ DATASET
 The VIVA challenge was organized to evaluate and advance
 the state-of-the-art in multi-modal dynamic hand gesture
 recognition under challenging conditions (with variable
-lighting and multiple subjects). The VIVA challenge’s
+lighting and multiple subjects). The VIVA challengeâ€™s
 dataset contains 885 intensity and depth video sequences of
 19 different dynamic hand gestures performed by 8 subjects.
 
@@ -17,7 +18,7 @@ or repeating frames. Then
 the original intensity and depth images by a factor of 2
 to 57  125 pixels was spatially down sampled. The gradients from the intensity
 channel using the Sobel operator of size 3  3 pixels is computed.Normalizing
-each channel of a particular gesture’s video sequence to be
+each channel of a particular gestureâ€™s video sequence to be
 of zero mean and unit variance helped the gesture
 classifier converge faster.
 
@@ -40,7 +41,7 @@ probability P(Cjx|WL) values.
 TRAINING
 
 The process of training a CNN involves the optimization
-of the network’s parameters W to minimize a cost function
+of the networkâ€™s parameters W to minimize a cost function
 for the dataset D.
 Optimization via stochastic gradient descent
 with mini-batches of 40 and 20 training samples for
@@ -122,7 +123,7 @@ A. Dynamic Hand Gesture Datasets
 Two kinds of dynamic hand gesture datasets, i.e.,
 LeapMotion-Gesture3D dataset and Handicraft-Gesture dataset,
 with an LMC were builted. All depth data frames of each dataset were acquired
-with the LMC’s specific API.
+with the LMCâ€™s specific API.
 1. LeapMotion-Gesture3D Dataset:
 	This dataset contains a subset of gestures defined by
 ASL. There are 12 gestures in the dataset: bathroom, blue, finish,
@@ -280,9 +281,9 @@ the highest recognition rate for the trained CNNs. Also, its seen that there is 
 CNN2 and CNN3; this may be attributed to saturating
 neurons and vanishing gradients.
 Its seen that the recognition rates for the
-CNNs decrease with networks’ depth, i.e., CNN3 has the
+CNNs decrease with networksâ€™ depth, i.e., CNN3 has the
 lowest recognition rate. In contrast, recognition rates for
-the SDAEs increase with networks’ depth, i.e., SDAE3
+the SDAEs increase with networksâ€™ depth, i.e., SDAE3
 achieved highest recognition rate.
 	Deep learning-based neural
 networks benefit from more distributed and hierarchical
@@ -316,7 +317,7 @@ color information and depth information. Secondly, generalized Hough Transform (
 		1)  Extract the hand contour by the Sobel operator in the depth image and taNe the contour as the template; 
 		2)  PicN a reference point randomly in the template
 		3)  Draw a line from the reference point 
-		4) Compute f (i.e., perpendicular to the gradient’s direction)
+		4) Compute f (i.e., perpendicular to the gradientâ€™s direction)
 	SEGMENTATION:
 		The next step is to segment hand gestures in the color images. We match the pixels in the color images with those
 		 in the depth images. If the pixel value in the depth images is larger than the set threshold, then the corresponding
