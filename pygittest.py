@@ -14,5 +14,5 @@ cmd = "git add ."
 subprocess.call(cmd, shell=True)
 cmd = 'git commit -m "python file update"'
 subprocess.call(cmd, shell=True)
-cmd = "git push -u origin DEV"
+cmd = "git push -u origin main"
 subprocess.call(cmd, shell=True)
