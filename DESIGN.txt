@@ -1,7 +1,3 @@
-changed again
-changed again
-changed again
-changed
 DESIGN
 3D Convolutional Neural Networks:
 
