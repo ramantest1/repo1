@@ -3,6 +3,7 @@ this is file1
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 this is change 2
 >>>>>>> 3a8294a2bf8c9d3bcfc0d7534abc2bbe20e7e8d7
@@ -15,3 +16,6 @@ this is change 5
 =======
 this is change 6
 >>>>>>> 2c7b3989219eb72d45dff50a9910ac467ac53bd9
+=======
+this is change 7
+>>>>>>> 9802f4dafc2dfe0d7fd81d7ebca86a2063e9cfbf
