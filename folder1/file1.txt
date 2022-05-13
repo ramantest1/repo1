@@ -1,5 +1,1 @@
 this is file1
-<<<<<<< HEAD
-=======
-this is file1
->>>>>>> 3dc3436e21596557ecaa0a954cac4bcab00b66cc
