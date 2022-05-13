@@ -1,7 +1,7 @@
 import subprocess
 #from pexpect import popen_spawn
 #from github import Github
-#g = Github("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")
+#g = Github("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")
 #repos = g.get_user().get_repos()
 #for repo in repos:
 #    print(repo.name)
