@@ -1,6 +1,6 @@
 DESIGN
 3D Convolutional Neural Networks:
-
+1
 DATASET
 The VIVA challenge was organized to evaluate and advance
 the state-of-the-art in multi-modal dynamic hand gesture
