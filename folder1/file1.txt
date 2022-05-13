@@ -1,1 +1,5 @@
 this is file1
+<<<<<<< HEAD
+=======
+this is change 2
+>>>>>>> 3a8294a2bf8c9d3bcfc0d7534abc2bbe20e7e8d7
